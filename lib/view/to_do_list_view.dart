@@ -166,10 +166,8 @@ class _ToDoListViewState extends ConsumerState<ToDoListView> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-                body: const SafeArea(
-                  child: Column(
-                    children: [Text('data')],
-                  ),
+                body: SafeArea(
+                  child: Container(),
                 ),
               );
             },
