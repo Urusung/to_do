@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
+  pageTransitionsTheme: const PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+    },
+  ),
   colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: Colors.deepPurple, //대표 색상
@@ -34,6 +41,11 @@ ThemeData lightTheme = ThemeData(
   ),
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Color.fromARGB(255, 247, 247, 247),
+    ),
     backgroundColor: Colors.white,
     elevation: 0,
   ),

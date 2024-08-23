@@ -13,6 +13,7 @@ class ToDoListProvider extends StateNotifier<List<ToDoList>> {
     state = [
       ...state,
       ToDoList(
+        category: 'To Do List',
         id: state.length + 1,
         work: work,
       ),
@@ -23,6 +24,7 @@ class ToDoListProvider extends StateNotifier<List<ToDoList>> {
     state = state.map((toDoList) {
       if (toDoList.id == id) {
         return ToDoList(
+          category: toDoList.category,
           id: toDoList.id,
           work: toDoList.work,
           isComplete: !toDoList.isComplete,
