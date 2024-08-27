@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do_list_riverpod/model/to_do_list.dart';
 
@@ -13,6 +14,7 @@ class ToDoListProvider extends StateNotifier<List<ToDoList>> {
     state = [
       ...state,
       ToDoList(
+        color: Colors.deepPurple,
         category: 'To Do List',
         id: state.length + 1,
         work: work,
@@ -24,6 +26,7 @@ class ToDoListProvider extends StateNotifier<List<ToDoList>> {
     state = state.map((toDoList) {
       if (toDoList.id == id) {
         return ToDoList(
+          color: Colors.deepPurple,
           category: toDoList.category,
           id: toDoList.id,
           work: toDoList.work,

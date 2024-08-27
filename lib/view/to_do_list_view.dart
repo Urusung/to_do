@@ -14,12 +14,13 @@ class ToDoListView extends ConsumerWidget {
         ref.read(scrollControllerOffsetProvider.notifier).scrollController;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         toolbarHeight: 0,
         scrolledUnderElevation: 0,
         backgroundColor: scrollControllerOffset > 42
-            ? Theme.of(context).colorScheme.secondary
-            : Theme.of(context).scaffoldBackgroundColor,
+            ? Theme.of(context).dialogBackgroundColor
+            : Theme.of(context).canvasColor,
       ),
       body: SafeArea(
         bottom: false,
@@ -29,13 +30,13 @@ class ToDoListView extends ConsumerWidget {
             CupertinoSliverNavigationBar(
               alwaysShowMiddle: false,
               backgroundColor: scrollControllerOffset > 42
-                  ? Theme.of(context).colorScheme.secondary
-                  : Theme.of(context).scaffoldBackgroundColor,
+                  ? Theme.of(context).dialogBackgroundColor
+                  : Theme.of(context).canvasColor,
               border: Border(
                 bottom: BorderSide(
                   color: scrollControllerOffset > 42
-                      ? Theme.of(context).colorScheme.surface
-                      : Theme.of(context).scaffoldBackgroundColor,
+                      ? Theme.of(context).colorScheme.outline
+                      : Theme.of(context).canvasColor,
                 ),
               ),
               leading: GestureDetector(
@@ -48,17 +49,9 @@ class ToDoListView extends ConsumerWidget {
                   context.pop();
                 },
               ),
-              trailing: GestureDetector(
-                child: Icon(
-                  CupertinoIcons.brightness,
-                  size: 28,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onTap: () {},
-              ),
               middle: Text(
                 'To Do List',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               largeTitle: Text(
                 'To Do List',
@@ -69,7 +62,10 @@ class ToDoListView extends ConsumerWidget {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return ListTile(
-                    title: Text('To Do $index'),
+                    title: Text(
+                      'To Do $index',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   );
                 },
                 childCount: 20,
@@ -84,74 +80,7 @@ class ToDoListView extends ConsumerWidget {
           Icons.add,
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
-        onPressed: () {
-          showModalBottomSheet(
-            backgroundColor:
-                Theme.of(context).colorScheme.surfaceContainerHighest,
-            context: context,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
-            builder: (BuildContext context) {
-              return Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  leadingWidth: 100,
-                  leading: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        overlayColor: WidgetStateColor.resolveWith(
-                            (states) => Colors.transparent),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Cancel',
-                        textAlign: TextAlign.left,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ),
-                  ),
-                  actions: [
-                    SizedBox(
-                      width: 100,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            overlayColor: WidgetStateColor.resolveWith(
-                                (states) => Colors.transparent),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'Done',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                  title: Text(
-                    'To Do',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                body: SafeArea(
-                  child: Container(),
-                ),
-              );
-            },
-          );
-        },
+        onPressed: () {},
       ),
     );
   }

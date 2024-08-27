@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.black,
+  dialogBackgroundColor: const Color.fromARGB(255, 28, 28, 28),
+  dividerColor: const Color.fromARGB(255, 70, 70, 70),
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: {
       TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -12,21 +15,42 @@ ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       primary: Colors.deepPurple, //대표 색상
       onPrimary: Colors.white,
-      secondary: Color.fromARGB(255, 24, 24, 24), //스크롤시 네비게이션바 색상
+      secondary: Colors.white,
       onSecondary: Colors.white,
       error: Colors.red,
       onError: Colors.white,
-      surface: Color.fromARGB(255, 28, 28, 28), //ListView 줄 색상
+      surface: Color.fromARGB(255, 28, 28, 28),
       onSurface: Colors.black, //텍스트 색상
+      outline: Color.fromARGB(255, 28, 28, 28), //앱바 테두리 색상
       surfaceContainerHighest:
           Color.fromARGB(255, 28, 28, 28) //showModalBottomSheet 색상
       ),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
+      //큰앱바
       color: Colors.deepPurple,
       fontWeight: FontWeight.bold,
     ),
+    headlineMedium: TextStyle(
+      //작은앱바
+      fontSize: 16,
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+    ),
+    headlineSmall: TextStyle(
+      //제목
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    ),
+    titleLarge: TextStyle(
+      //소제목
+      fontSize: 16,
+      color: Color.fromARGB(255, 145, 145, 145),
+      fontWeight: FontWeight.bold,
+    ),
     titleMedium: TextStyle(
+      fontSize: 16,
       color: Colors.white,
       fontWeight: FontWeight.w600,
     ),
@@ -39,7 +63,6 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.normal,
     ),
   ),
-  scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,

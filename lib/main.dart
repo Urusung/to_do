@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do_list_riverpod/theme/dark_theme.dart';
 import 'package:to_do_list_riverpod/theme/light_theme.dart';
-import 'package:to_do_list_riverpod/view_model/go_router_provider.dart';
+import 'package:to_do_list_riverpod/route/go_router_provider.dart';
 
 void main() {
   runApp(
