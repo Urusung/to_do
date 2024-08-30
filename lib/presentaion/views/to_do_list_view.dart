@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_do_list_riverpod/view_model/scroll_controller_provider.dart';
+import 'package:to_do_list_riverpod/presentaion/viewmodels/scroll_controller_provider.dart';
 
 class ToDoListView extends ConsumerWidget {
   const ToDoListView({super.key});
@@ -75,10 +76,10 @@ class ToDoListView extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).scaffoldBackgroundColor,
+        child: FaIcon(
+          FontAwesomeIcons.plus,
+          size: 18,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         onPressed: () {},
       ),

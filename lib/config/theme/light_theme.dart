@@ -17,7 +17,7 @@ ThemeData lightTheme = ThemeData(
       primary: Colors.deepPurple, //대표 색상
       onPrimary: Colors.white,
       secondary: Colors.white,
-      onSecondary: Color.fromARGB(255, 190, 190, 190),
+      onSecondary: Color.fromARGB(255, 194, 194, 194),
       tertiary: Colors.black,
       error: Colors.red,
       onError: Colors.white,

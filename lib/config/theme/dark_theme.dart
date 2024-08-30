@@ -16,7 +16,7 @@ ThemeData darkTheme = ThemeData(
       primary: Colors.deepPurple, //대표 색상
       onPrimary: Colors.white,
       secondary: Colors.white,
-      onSecondary: Colors.white,
+      onSecondary: Color.fromARGB(255, 84, 84, 84),
       error: Colors.red,
       onError: Colors.white,
       surface: Color.fromARGB(255, 28, 28, 28),
@@ -51,8 +51,8 @@ ThemeData darkTheme = ThemeData(
     ),
     titleMedium: TextStyle(
       fontSize: 16,
-      color: Colors.white,
-      fontWeight: FontWeight.w600,
+      color: Color.fromARGB(255, 154, 154, 154),
+      fontWeight: FontWeight.w400,
     ),
     titleSmall: TextStyle(
       color: Colors.deepPurple,

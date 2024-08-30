@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/presentaion/viewmodels/color_picker_provider.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -36,9 +39,9 @@ class HomeView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-              child: Icon(
-                CupertinoIcons.search,
-                size: 28,
+              child: FaIcon(
+                FontAwesomeIcons.magnifyingGlass,
+                size: 18,
                 color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () {},
@@ -165,9 +168,9 @@ class HomeView extends StatelessWidget {
                                 radius: 14,
                                 backgroundColor:
                                     Theme.of(context).colorScheme.primary,
-                                child: const Icon(
-                                  CupertinoIcons.list_bullet,
-                                  size: 18,
+                                child: const FaIcon(
+                                  FontAwesomeIcons.listUl,
+                                  size: 14,
                                   color: Colors.white,
                                 ),
                               ),
@@ -185,12 +188,12 @@ class HomeView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               const Gap(4),
-                              Icon(
-                                CupertinoIcons.chevron_right,
-                                size: 16,
+                              FaIcon(
+                                FontAwesomeIcons.chevronRight,
+                                size: 14,
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
-                              )
+                              ),
                             ],
                           )
                         ],
@@ -204,21 +207,24 @@ class HomeView extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).canvasColor,
+        child: FaIcon(
+          FontAwesomeIcons.plus,
+          size: 18,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         onPressed: () {
           showModalBottomSheet(
             isScrollControlled: true,
-            backgroundColor: Theme.of(context).dialogBackgroundColor,
             context: context,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
             builder: (BuildContext context) {
-              return SizedBox(
+              return Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(18.0),
+                    topRight: Radius.circular(18.0),
+                  ),
+                ),
                 height: MediaQuery.of(context).size.height * 0.9,
                 child: Scaffold(
                   backgroundColor: Colors.transparent,
@@ -273,7 +279,82 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   body: SafeArea(
-                    child: Container(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 84,
+                                  height: 84,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(42.0),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(0.4),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: const Center(
+                                    child: FaIcon(
+                                      FontAwesomeIcons.listUl,
+                                      size: 42,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                const Gap(18),
+                                TextField(
+                                  cursorColor: Colors.blue,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    hintText: 'List Name',
+                                    filled: true,
+                                    fillColor: Colors.grey.shade200,
+                                    contentPadding: const EdgeInsets.only(
+                                        left: 0, right: 0), // 커서와 텍스트의 위치를 조정
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12.0),
+                                      ),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    // 텍스트 입력 시 커서가 자동으로 텍스트 바로 앞에 위치하도록 설정
+                                    // 필요 시 추가 논리가 들어갈 수 있습니다.
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Gap(16),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                            child: const ColorPicker(),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               );
@@ -281,6 +362,59 @@ class HomeView extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class ColorPicker extends ConsumerWidget {
+  const ColorPicker({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedColor = ref.watch(colorPickerProvider);
+    List<Color> colorList = [
+      Colors.red,
+      Colors.orange,
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.deepPurple,
+      Colors.brown,
+    ];
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: colorList.map(
+        (color) {
+          return GestureDetector(
+            onTap: () {
+              ref.read(colorPickerProvider.notifier).selectColor(color);
+            },
+            child: Container(
+              width: 46,
+              height: 46,
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+                border: selectedColor == color
+                    ? Border.all(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        width: 3,
+                      )
+                    : null,
+              ),
+              child: Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: color,
+                ),
+              ),
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }

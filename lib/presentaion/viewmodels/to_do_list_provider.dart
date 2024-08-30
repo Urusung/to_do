@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:to_do_list_riverpod/model/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
 
 final toDoListProvider =
     StateNotifierProvider<ToDoListProvider, List<ToDoList>>((ref) {
@@ -18,6 +18,7 @@ class ToDoListProvider extends StateNotifier<List<ToDoList>> {
         category: 'To Do List',
         id: state.length + 1,
         work: work,
+        isComplete: false,
       ),
     ];
   }
