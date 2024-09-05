@@ -1,15 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/scroll_controller_provider.dart';
+import 'package:to_do_list_riverpod/presentaion/viewmodels/to_do_lists_provider.dart';
 
-class ToDoListView extends ConsumerWidget {
-  const ToDoListView({super.key});
+class ToDoListsView extends ConsumerWidget {
+  final MyLists myList;
+
+  const ToDoListsView({
+    super.key,
+    required this.myList,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final myListName = myList.name;
+    final myListColor = myList.colorValue;
+    final toDoLists = ref.watch(toDoListsProvider(myList));
+
     final scrollControllerOffset = ref.watch(scrollControllerOffsetProvider);
     final scrollController =
         ref.read(scrollControllerOffsetProvider.notifier).scrollController;
@@ -51,35 +63,69 @@ class ToDoListView extends ConsumerWidget {
                 },
               ),
               middle: Text(
-                'To Do List',
-                style: Theme.of(context).textTheme.headlineMedium,
+                myListName,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(color: Color(myListColor)),
               ),
               largeTitle: Text(
-                'To Do List',
-                style: Theme.of(context).textTheme.headlineLarge,
+                myListName,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: Color(myListColor)),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(
-                      'To Do $index',
-                      style: Theme.of(context).textTheme.bodyLarge,
+            SliverList.builder(
+              itemCount: toDoLists.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    print(index);
+                  },
+                  child: Slidable(
+                    key: Key(toDoLists[index].key.toString()),
+                    endActionPane: ActionPane(
+                      motion: const StretchMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {},
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                        ),
+                      ],
                     ),
-                  );
-                },
-                childCount: 20,
-              ),
-            ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            toDoLists[index].title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Checkbox(
+                            value: toDoLists[index].isCompleted,
+                            onChanged: (value) {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         child: FaIcon(
           FontAwesomeIcons.plus,
           size: 18,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).canvasColor,
         ),
         onPressed: () {},
       ),

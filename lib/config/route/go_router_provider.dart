@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_do_list_riverpod/presentaion/views/home_view.dart';
+import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/presentaion/views/my_lists.dart';
 import 'package:to_do_list_riverpod/presentaion/views/to_do_list_view.dart';
 
 final goRouterProvider = Provider<GoRouter>(
@@ -9,13 +10,16 @@ final goRouterProvider = Provider<GoRouter>(
       routes: [
         GoRoute(
           path: '/',
-          name: 'main_view',
-          builder: (context, state) => const HomeView(),
+          name: 'myListsView',
+          builder: (context, state) => const MyListsView(),
         ),
         GoRoute(
           path: '/to_do_list_view',
-          name: 'to_do_list_view',
-          builder: (context, state) => const ToDoListView(),
+          name: 'toDoListsView',
+          builder: (context, state) {
+            final myList = state.extra as MyLists;
+            return ToDoListsView(myList: myList);
+          },
         ),
       ],
     );

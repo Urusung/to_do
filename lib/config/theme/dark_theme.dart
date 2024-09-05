@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black,
+  canvasColor: Colors.black,
   dialogBackgroundColor: const Color.fromARGB(255, 28, 28, 28),
   dividerColor: const Color.fromARGB(255, 70, 70, 70),
   pageTransitionsTheme: const PageTransitionsTheme(

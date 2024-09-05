@@ -1,30 +1,39 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'to_do_list.g.dart';
 
 @HiveType(typeId: 0)
-class ToDoList extends HiveObject {
+class ToDoLists extends HiveObject {
   @HiveField(0)
-  final int id;
+  String title;
 
   @HiveField(1)
-  final String work;
+  DateTime? date;
 
   @HiveField(2)
-  final String category;
+  bool isCompleted;
 
-  @HiveField(3)
-  final Color color;
+  ToDoLists({
+    required this.title,
+    this.date,
+    this.isCompleted = false,
+  });
+}
 
-  @HiveField(4)
-  final bool isComplete;
+@HiveType(typeId: 1)
+class MyLists extends HiveObject {
+  @HiveField(0)
+  String name;
 
-  ToDoList({
-    required this.id,
-    required this.work,
-    required this.category,
-    required this.color,
-    required this.isComplete,
+  @HiveField(1)
+  int colorValue;
+
+  @HiveField(2)
+  HiveList<ToDoLists>? toDoLists;
+
+  MyLists({
+    required this.name,
+    required this.colorValue,
+    this.toDoLists,
   });
 }

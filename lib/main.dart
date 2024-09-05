@@ -7,9 +7,14 @@ import 'package:to_do_list_riverpod/config/route/go_router_provider.dart';
 import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
-  Hive.registerAdapter(ToDoListAdapter());
-  await Hive.openBox<ToDoList>('toDoListBox');
+  Hive.registerAdapter(ToDoListsAdapter());
+  Hive.registerAdapter(MyListsAdapter());
+
+  await Hive.openBox<MyLists>('myLists');
+  await Hive.openBox<ToDoLists>('toDoLists');
   runApp(
     const ProviderScope(
       child: MyApp(),

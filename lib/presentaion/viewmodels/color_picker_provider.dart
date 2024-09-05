@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final colorPickerProvider =
-    StateNotifierProvider<ColorPickerNotifier, Color>((ref) {
+    StateNotifierProvider.autoDispose<ColorPickerNotifier, Color>((ref) {
   return ColorPickerNotifier();
 });
 
