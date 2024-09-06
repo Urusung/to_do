@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do_list_riverpod/data/repositories/my_lists_repository.dart';
 import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/my_lists_repository_provider.dart';
+import 'package:to_do_list_riverpod/data/repositories/my_lists_repository_provider.dart';
 
 // MyLists 상태를 관리하는 StateNotifierProvider
 final myListsProvider = StateNotifierProvider<MyListsNotifier, List<MyLists>>(

@@ -7,7 +7,6 @@ class LocalDataSource {
 
   LocalDataSource(this._myListsBox, this._toDoListsBox);
 
-  // MyLists 관련 작업
   List<MyLists> getAllMyLists() {
     return _myListsBox.values.toList();
   }
@@ -20,7 +19,6 @@ class LocalDataSource {
     await _myListsBox.delete(list.key);
   }
 
-  // ToDoLists 관련 작업
   List<ToDoLists> getAllToDoLists() {
     return _toDoListsBox.values.toList();
   }
