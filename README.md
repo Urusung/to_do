@@ -1,4 +1,4 @@
-# to_do_list_riverpod
+# to_do
 
 A new Flutter project.
 
