@@ -1,5 +1,5 @@
 import 'package:to_do_list_riverpod/data/datasources/database/local_data_source.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 
 class ToDoListsRepository {
   final LocalDataSource localDataSource;

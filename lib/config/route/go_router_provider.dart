@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 import 'package:to_do_list_riverpod/presentaion/views/my_lists.dart';
-import 'package:to_do_list_riverpod/presentaion/views/to_do_list_view.dart';
+import 'package:to_do_list_riverpod/presentaion/views/to_do_lists_view.dart';
 
 final goRouterProvider = Provider<GoRouter>(
   (ref) {

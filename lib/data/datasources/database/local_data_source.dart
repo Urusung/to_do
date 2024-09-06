@@ -1,33 +1,33 @@
 import 'package:hive/hive.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 
 class LocalDataSource {
-  final Box<MyLists> _myListsBox;
-  final Box<ToDoLists> _toDoListsBox;
+  final Box<MyLists> myListsBox;
+  final Box<ToDoLists> toDoListsBox;
 
-  LocalDataSource(this._myListsBox, this._toDoListsBox);
+  LocalDataSource(this.myListsBox, this.toDoListsBox);
 
   List<MyLists> getAllMyLists() {
-    return _myListsBox.values.toList();
+    return myListsBox.values.toList();
   }
 
   Future<void> addMyList(MyLists list) async {
-    await _myListsBox.add(list);
+    await myListsBox.add(list);
   }
 
   Future<void> deleteMyList(MyLists list) async {
-    await _myListsBox.delete(list.key);
+    await myListsBox.delete(list.key);
   }
 
   List<ToDoLists> getAllToDoLists() {
-    return _toDoListsBox.values.toList();
+    return toDoListsBox.values.toList();
   }
 
   Future<void> addToDoList(ToDoLists toDo) async {
-    await _toDoListsBox.add(toDo);
+    await toDoListsBox.add(toDo);
   }
 
   Future<void> deleteToDoList(ToDoLists toDo) async {
-    await _toDoListsBox.delete(toDo.key);
+    await toDoListsBox.delete(toDo.key);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 import 'package:to_do_list_riverpod/data/repositories/to_do_lists_repository.dart';
 import 'package:to_do_list_riverpod/data/repositories/to_do_lists_repository_provider.dart';
 

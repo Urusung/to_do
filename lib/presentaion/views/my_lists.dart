@@ -20,27 +20,6 @@ class MyListsView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        centerTitle: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(19.0),
-              child: Image.network(
-                'https://img.vogue.co.kr/vogue/2024/01/style_65b0d1d9cf264-1400x1400.jpeg',
-                width: 38,
-                height: 38,
-                fit: BoxFit.fill,
-              ),
-            ),
-            const Gap(12),
-            Text(
-              '최우성',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
@@ -57,16 +36,16 @@ class MyListsView extends ConsumerWidget {
       ),
       body: SafeArea(
         bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-          child: CustomScrollView(
-            slivers: [
-              SliverGrid(
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 2 / 1,
-                  mainAxisSpacing: 16.0,
-                  crossAxisSpacing: 16.0,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 2.1,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   childCount: 4,
@@ -91,26 +70,23 @@ class MyListsView extends ConsumerWidget {
                                   radius: 14,
                                   backgroundColor:
                                       Theme.of(context).colorScheme.primary,
-                                  child: const Icon(
-                                    CupertinoIcons.list_bullet,
-                                    size: 18,
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.listUl,
+                                    size: 14,
                                     color: Colors.white,
                                   ),
                                 ),
-                                const Gap(4),
                                 Text(
                                   'Today',
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ],
                             ),
                             Text(
-                              '1',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(fontSize: 28),
-                            )
+                              '0',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
                           ],
                         ),
                       ),
@@ -118,22 +94,28 @@ class MyListsView extends ConsumerWidget {
                   },
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: Gap(12),
-              ),
-              myLists.isEmpty
-                  ? const SliverToBoxAdapter()
-                  : SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8, top: 8.0, bottom: 8.0),
-                        child: Text(
-                          'My Lists',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+            ),
+            const SliverToBoxAdapter(
+              child: Gap(4),
+            ),
+            myLists.isEmpty
+                ? const SliverToBoxAdapter()
+                : SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 28, top: 8.0, bottom: 8.0),
+                      child: Text(
+                        'My Lists',
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
                     ),
-              DecoratedSliver(
+                  ),
+            SliverPadding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              sliver: DecoratedSliver(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                   borderRadius: const BorderRadius.all(
@@ -151,12 +133,6 @@ class MyListsView extends ConsumerWidget {
                   },
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
-                        context.pushNamed(
-                          'toDoListsView',
-                          extra: myLists[index],
-                        );
-                      },
                       child: Slidable(
                         key: Key(myLists[index].key.toString()),
                         endActionPane: ActionPane(
@@ -168,7 +144,7 @@ class MyListsView extends ConsumerWidget {
                                     .read(myListsProvider.notifier)
                                     .deleteList(myLists[index]);
                               },
-                              borderRadius: index == 0
+                              borderRadius: index == 0 && myLists.length > 1
                                   ? const BorderRadius.only(
                                       topRight: Radius.circular(8.0),
                                     )
@@ -205,7 +181,7 @@ class MyListsView extends ConsumerWidget {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const Gap(8),
+                                  const Gap(10),
                                   Text(
                                     myLists[index].name,
                                     style:
@@ -222,9 +198,9 @@ class MyListsView extends ConsumerWidget {
                                             .toString() ??
                                         '0',
                                     style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                  const Gap(4),
+                                  const Gap(8),
                                   FaIcon(
                                     FontAwesomeIcons.chevronRight,
                                     size: 14,
@@ -238,109 +214,155 @@ class MyListsView extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      onTap: () {
+                        context.pushNamed(
+                          'toDoListsView',
+                          extra: myLists[index],
+                        );
+                      },
                     );
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        child: FaIcon(
-          FontAwesomeIcons.plus,
-          size: 18,
-          color: Theme.of(context).canvasColor,
-        ),
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(18.0),
-                    topRight: Radius.circular(18.0),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 12, right: 16, bottom: 34),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+              child: Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.add_circled_solid,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 28,
                   ),
-                ),
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: Scaffold(
-                  backgroundColor: Colors.transparent,
-                  appBar: AppBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    leadingWidth: 100,
-                    title: Text(
-                      'New List',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    leading: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          overlayColor: WidgetStateColor.resolveWith(
-                              (states) => Colors.transparent),
+                  const Gap(8),
+                  Text(
+                    'New To Do List',
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'Cancel',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
+              ),
+              onTap: () {},
+            ),
+            GestureDetector(
+              child: Text(
+                'Add List',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(18.0),
+                          topRight: Radius.circular(18.0),
                         ),
                       ),
-                    ),
-                    actions: [
-                      SizedBox(
-                        width: 100,
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              overlayColor: WidgetStateColor.resolveWith(
-                                  (states) => Colors.transparent),
+                      height: MediaQuery.of(context).size.height * 0.9,
+                      child: Scaffold(
+                        backgroundColor: Colors.transparent,
+                        appBar: AppBar(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          leadingWidth: 100,
+                          title: Text(
+                            'New List',
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          leading: Container(
+                            padding: const EdgeInsets.only(left: 4.0),
+                            alignment: Alignment.centerLeft,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                overlayColor: WidgetStateColor.resolveWith(
+                                    (states) => Colors.transparent),
+                              ),
+                              child: Text(
+                                'Cancel',
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
-                            child: Text(
-                              'Done',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          actions: [
+                            SizedBox(
+                              width: 100,
+                              child: Container(
+                                padding: const EdgeInsets.only(right: 4.0),
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    overlayColor: WidgetStateColor.resolveWith(
+                                        (states) => Colors.transparent),
+                                  ),
+                                  child: Text(
+                                    'Done',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    ref.read(myListsProvider.notifier).addList(
+                                          'New List',
+                                          ref.read(colorPickerProvider).value,
+                                        );
+                                  },
+                                ),
+                              ),
                             ),
-                            onPressed: () {
-                              Navigator.pop(context);
-
-                              ref.read(myListsProvider.notifier).addList(
-                                    'New List',
-                                    ref.read(colorPickerProvider).value,
-                                  );
-                            },
+                          ],
+                        ),
+                        body: const SafeArea(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                ListNameInput(),
+                                Gap(16),
+                                ColorPicker(),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  body: const SafeArea(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          ListNameInput(),
-                          Gap(16),
-                          ColorPicker(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

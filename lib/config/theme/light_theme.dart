@@ -30,40 +30,56 @@ ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
       //큰앱바
+      letterSpacing: -0.5,
       color: Colors.deepPurple,
       fontWeight: FontWeight.bold,
     ),
     headlineMedium: TextStyle(
       //작은앱바
+      letterSpacing: -0.5,
       fontSize: 16,
       color: Colors.black,
       fontWeight: FontWeight.w600,
     ),
     headlineSmall: TextStyle(
       //제목
+      letterSpacing: -0.5,
       fontSize: 20,
       color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
     titleLarge: TextStyle(
-      //소제목
-      fontSize: 16,
-      color: Color.fromARGB(255, 154, 154, 154),
+      //그리드뷰 제목
+      letterSpacing: -0.5,
+      fontSize: 26,
+      color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
     titleMedium: TextStyle(
+      //그리드뷰 서브타이틀
+      letterSpacing: -0.5,
       fontSize: 16,
-      color: Color.fromARGB(255, 154, 154, 154),
-      fontWeight: FontWeight.w400,
+      color: Color.fromARGB(255, 146, 146, 146),
+      fontWeight: FontWeight.w600,
     ),
     titleSmall: TextStyle(
-      fontSize: 14,
+      letterSpacing: -0.5,
+      fontSize: 16,
       color: Colors.deepPurple,
       fontWeight: FontWeight.w400,
     ),
+    //리스트뷰
     bodyLarge: TextStyle(
+      letterSpacing: -0.5,
+      fontSize: 16,
       color: Colors.black,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w400,
+    ),
+    bodyMedium: TextStyle(
+      letterSpacing: -0.5,
+      fontSize: 16,
+      color: Color.fromARGB(255, 154, 154, 154),
+      fontWeight: FontWeight.w400,
     ),
   ),
   appBarTheme: const AppBarTheme(

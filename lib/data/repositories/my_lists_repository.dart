@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list_riverpod/data/datasources/database/local_data_source.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 
 class MyListsRepository {
   final LocalDataSource localDataSource;

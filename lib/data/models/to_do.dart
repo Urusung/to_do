@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'to_do_list.g.dart';
+part 'to_do.g.dart';
 
 @HiveType(typeId: 0)
 class ToDoLists extends HiveObject {

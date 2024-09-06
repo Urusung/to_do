@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list_riverpod/config/theme/dark_theme.dart';
 import 'package:to_do_list_riverpod/config/theme/light_theme.dart';
 import 'package:to_do_list_riverpod/config/route/go_router_provider.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_list.dart';
+import 'package:to_do_list_riverpod/data/models/to_do.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
