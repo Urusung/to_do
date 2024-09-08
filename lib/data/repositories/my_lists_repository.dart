@@ -1,25 +1,24 @@
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list_riverpod/data/datasources/database/local_data_source.dart';
-import 'package:to_do_list_riverpod/data/models/to_do.dart';
+import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
 
 class MyListsRepository {
   final LocalDataSource localDataSource;
 
   MyListsRepository(this.localDataSource);
 
-  List<MyLists> getAllMyLists() {
-    return localDataSource.getAllMyLists();
+  Future<void> addMyList(MyListsModel list) async {
+    await localDataSource.insertMyList(list);
   }
 
-  Future<void> addMyList(MyLists list) async {
-    await localDataSource.addMyList(list);
+  Future<List<MyListsModel>> getMyLists() async {
+    return await localDataSource.getAllMyLists();
   }
 
-  Future<void> deleteMyList(MyLists list) async {
-    await localDataSource.deleteMyList(list);
+  Future<void> updateMyList(MyListsModel list) async {
+    await localDataSource.updateMyList(list);
   }
 
-  HiveList<ToDoLists>? getToDoListsForMyList(MyLists list) {
-    return list.toDoLists;
+  Future<void> deleteMyList(String name) async {
+    await localDataSource.deleteMyList(name);
   }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do_list_riverpod/data/repositories/my_lists_repository.dart';
-import 'package:to_do_list_riverpod/data/models/to_do.dart';
+import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
 import 'package:to_do_list_riverpod/data/repositories/my_lists_repository_provider.dart';
 
 // MyLists 상태를 관리하는 StateNotifierProvider
-final myListsProvider = StateNotifierProvider<MyListsNotifier, List<MyLists>>(
+final myListsProvider =
+    StateNotifierProvider<MyListsNotifier, List<MyListsModel>>(
   (ref) => MyListsNotifier(ref.read(myListsRepositoryProvider)),
 );
 
-class MyListsNotifier extends StateNotifier<List<MyLists>> {
+class MyListsNotifier extends StateNotifier<List<MyListsModel>> {
   final MyListsRepository myListsRepository;
 
   MyListsNotifier(this.myListsRepository) : super([]) {
@@ -17,31 +18,25 @@ class MyListsNotifier extends StateNotifier<List<MyLists>> {
 
   // 데이터 로드 메서드
   Future<void> _loadMyLists() async {
-    final lists = myListsRepository.getAllMyLists();
+    final lists = await myListsRepository.getMyLists();
     state = lists; // 상태를 리스트로 업데이트
   }
 
   // 리스트 추가 메서드
   Future<void> addList(String name, int colorValue) async {
-    final newList = MyLists(
+    final newList = MyListsModel(
       name: name,
       colorValue: colorValue,
+      toDoLists: [], // 새로운 리스트에 할 일은 처음에는 없음
     );
-    await myListsRepository.addMyList(newList); // 로컬 데이터에 추가
+    await myListsRepository.addMyList(newList); // 로컬 데이터베이스에 추가
     state = [...state, newList]; // 상태 업데이트
   }
 
   // 리스트 삭제 메서드
-  Future<void> deleteList(MyLists list) async {
-    await myListsRepository.deleteMyList(list); // 로컬 데이터에서 삭제
+  Future<void> deleteList(MyListsModel list) async {
+    await myListsRepository.deleteMyList(list.name); // 로컬 데이터베이스에서 삭제
     state =
-        state.where((element) => element.key != list.key).toList(); // 상태 업데이트
-  }
-
-  // 특정 MyLists에 할 일 추가 메서드
-  Future<void> addToDoToList(MyLists list, ToDoLists toDo) async {
-    list.toDoLists?.add(toDo);
-    await list.save(); // Hive에서 MyLists 객체 저장
-    state = [...state]; // 상태 갱신
+        state.where((element) => element.name != list.name).toList(); // 상태 업데이트
   }
 }

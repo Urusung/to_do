@@ -134,7 +134,7 @@ class MyListsView extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: Slidable(
-                        key: Key(myLists[index].key.toString()),
+                        key: Key(myLists[index].id.toString()),
                         endActionPane: ActionPane(
                           motion: const StretchMotion(),
                           children: [
@@ -192,11 +192,7 @@ class MyListsView extends ConsumerWidget {
                               Row(
                                 children: [
                                   Text(
-                                    myLists[index]
-                                            .toDoLists
-                                            ?.length
-                                            .toString() ??
-                                        '0',
+                                    '0',
                                     style:
                                         Theme.of(context).textTheme.bodyMedium,
                                   ),
