@@ -5,10 +5,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/color_picker_provider.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/my_lists_provider.dart';
+import 'package:to_do_list_riverpod/presentaion/viewmodels/to_do_lists_provider.dart';
 import 'package:to_do_list_riverpod/presentaion/widgets/color_picker.dart';
 import 'package:to_do_list_riverpod/presentaion/widgets/list_name_input.dart';
+import 'package:uuid/uuid.dart';
 
 class MyListsView extends ConsumerWidget {
   const MyListsView({super.key});
@@ -140,9 +143,9 @@ class MyListsView extends ConsumerWidget {
                           children: [
                             SlidableAction(
                               onPressed: (context) {
-                                ref
-                                    .read(myListsProvider.notifier)
-                                    .deleteList(myLists[index]);
+                                // ref
+                                //     .read(myListsProvider.notifier)
+                                //     .deleteList(myLists[index]);
                               },
                               borderRadius: index == 0 && myLists.length > 1
                                   ? const BorderRadius.only(
@@ -192,7 +195,11 @@ class MyListsView extends ConsumerWidget {
                               Row(
                                 children: [
                                   Text(
-                                    '0',
+                                    ref
+                                        .read(toDoListsProvider(
+                                            myLists[index].id))
+                                        .length
+                                        .toString(),
                                     style:
                                         Theme.of(context).textTheme.bodyMedium,
                                   ),
@@ -329,10 +336,16 @@ class MyListsView extends ConsumerWidget {
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    ref.read(myListsProvider.notifier).addList(
-                                          'New List',
+                                    final newList = MyListsModel(
+                                      id: const Uuid().v4(),
+                                      name: 'New List',
+                                      colorValue:
                                           ref.read(colorPickerProvider).value,
-                                        );
+                                      toDoLists: [],
+                                    );
+                                    ref
+                                        .read(myListsProvider.notifier)
+                                        .addMyList(newList);
                                   },
                                 ),
                               ),

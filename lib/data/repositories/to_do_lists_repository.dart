@@ -1,24 +1,24 @@
-// import 'package:to_do_list_riverpod/data/datasources/database/local_data_source.dart';
-// import 'package:to_do_list_riverpod/data/models/to_do_lists_model.dart';
+import 'package:to_do_list_riverpod/data/datasources/database/local_data_source.dart';
+import 'package:to_do_list_riverpod/data/models/to_do_lists_model.dart';
 
-// class ToDoListsRepository {
-//   final LocalDataSource localDataSource;
+class ToDoListsRepository {
+  final LocalDataSource localDataSource;
 
-//   ToDoListsRepository({required this.localDataSource});
+  ToDoListsRepository(this.localDataSource);
 
-//   Future<List<ToDoListModel>> getToDoLists() async {
-//     return localDataSource.getToDoLists();
-//   }
+  // ToDoLists 데이터를 삽입
+  Future<void> addToDoList(ToDoListsModel toDoList, String myListId) async {
+    await localDataSource.insertToDoList(toDoList, myListId);
+  }
 
-//   Future<void> insertToDoList(ToDoListModel toDoListModel) async {
-//     return localDataSource.insertToDoList(toDoListModel);
-//   }
+  // 특정 MyLists에 속한 ToDoLists 데이터를 가져오기
+  Future<List<ToDoListsModel>> getToDoLists(String myListId) async {
+    return await localDataSource.getToDoLists(myListId);
+  }
 
-//   Future<void> updateToDoList(ToDoListModel toDoListModel) async {
-//     return localDataSource.updateToDoList(toDoListModel);
-//   }
-
-//   Future<void> deleteToDoList(ToDoListModel toDoListModel) async {
-//     return localDataSource.deleteToDoList(toDoListModel);
-//   }
-// }
+  // ToDoLists 삭제 메서드 (필요 시 추가)
+  Future<void> deleteToDoList(String id) async {
+    final db = await localDataSource.database;
+    await db.delete('ToDoLists', where: 'id = ?', whereArgs: [id]);
+  }
+}

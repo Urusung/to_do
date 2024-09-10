@@ -6,19 +6,19 @@ class MyListsRepository {
 
   MyListsRepository(this.localDataSource);
 
-  Future<void> addMyList(MyListsModel list) async {
-    await localDataSource.insertMyList(list);
+  // MyLists 데이터를 삽입
+  Future<void> addMyList(MyListsModel myList) async {
+    await localDataSource.insertMyList(myList);
   }
 
+  // MyLists 데이터를 가져오기
   Future<List<MyListsModel>> getMyLists() async {
-    return await localDataSource.getAllMyLists();
+    return await localDataSource.getMyLists();
   }
 
-  Future<void> updateMyList(MyListsModel list) async {
-    await localDataSource.updateMyList(list);
-  }
-
-  Future<void> deleteMyList(String name) async {
-    await localDataSource.deleteMyList(name);
+  // MyLists 삭제 메서드 (필요 시 추가)
+  Future<void> deleteMyList(String id) async {
+    final db = await localDataSource.database;
+    await db.delete('MyLists', where: 'id = ?', whereArgs: [id]);
   }
 }
