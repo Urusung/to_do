@@ -20,7 +20,7 @@ class ToDoListsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myListName = myList.name;
-    final myListColor = myList.colorValue;
+    final myListColor = Color(myList.colorValue);
     final toDoLists = ref.watch(toDoListsProvider(myList.id));
 
     return Scaffold(
@@ -58,18 +58,25 @@ class ToDoListsView extends ConsumerWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium!
-                    .copyWith(color: Color(myListColor)),
+                    .copyWith(color: myListColor),
               ),
               largeTitle: Text(
                 myListName,
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge!
-                    .copyWith(color: Color(myListColor)),
+                    .copyWith(color: myListColor),
               ),
             ),
-            SliverList.builder(
+            SliverList.separated(
               itemCount: toDoLists.length,
+              separatorBuilder: (context, index) {
+                return Container(
+                  height: 0.4,
+                  color: Theme.of(context).dividerColor,
+                  margin: const EdgeInsets.only(left: 48.0),
+                );
+              },
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
@@ -89,17 +96,55 @@ class ToDoListsView extends ConsumerWidget {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 8,
+                        bottom: 8,
+                      ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            toDoLists[index].title,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                color: toDoLists[index].isCompleted
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                  width: 1.4,
+                                ),
+                              ),
+                              child: Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  color: toDoLists[index].isCompleted
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
                           ),
-                          Checkbox(
-                            value: toDoLists[index].isCompleted,
-                            onChanged: (value) {},
+                          const Gap(12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                toDoLists[index].title,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              Text(
+                                toDoLists[index].description,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -118,14 +163,14 @@ class ToDoListsView extends ConsumerWidget {
             children: [
               Icon(
                 CupertinoIcons.add_circled_solid,
-                color: Theme.of(context).colorScheme.primary,
+                color: myListColor,
                 size: 28,
               ),
               const Gap(8),
               Text(
                 'New To Do List',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: myListColor,
                     ),
               ),
             ],

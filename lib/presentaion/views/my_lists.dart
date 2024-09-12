@@ -5,13 +5,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/color_picker_provider.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/my_lists_provider.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/to_do_lists_provider.dart';
-import 'package:to_do_list_riverpod/presentaion/widgets/color_picker.dart';
-import 'package:to_do_list_riverpod/presentaion/widgets/list_name_input.dart';
-import 'package:uuid/uuid.dart';
+import 'package:to_do_list_riverpod/presentaion/views/add_new_list_view.dart';
 
 class MyListsView extends ConsumerWidget {
   const MyListsView({super.key});
@@ -196,7 +192,7 @@ class MyListsView extends ConsumerWidget {
                                 children: [
                                   Text(
                                     ref
-                                        .read(toDoListsProvider(
+                                        .watch(toDoListsProvider(
                                             myLists[index].id))
                                         .length
                                         .toString(),
@@ -232,7 +228,8 @@ class MyListsView extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 12, right: 16, bottom: 34),
+        padding:
+            const EdgeInsets.only(left: 18, right: 18, bottom: 34, top: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -268,104 +265,7 @@ class MyListsView extends ConsumerWidget {
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(18.0),
-                          topRight: Radius.circular(18.0),
-                        ),
-                      ),
-                      height: MediaQuery.of(context).size.height * 0.9,
-                      child: Scaffold(
-                        backgroundColor: Colors.transparent,
-                        appBar: AppBar(
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                          leadingWidth: 100,
-                          title: Text(
-                            'New List',
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                          leading: Container(
-                            padding: const EdgeInsets.only(left: 4.0),
-                            alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                overlayColor: WidgetStateColor.resolveWith(
-                                    (states) => Colors.transparent),
-                              ),
-                              child: Text(
-                                'Cancel',
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                          actions: [
-                            SizedBox(
-                              width: 100,
-                              child: Container(
-                                padding: const EdgeInsets.only(right: 4.0),
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    overlayColor: WidgetStateColor.resolveWith(
-                                        (states) => Colors.transparent),
-                                  ),
-                                  child: Text(
-                                    'Done',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    final newList = MyListsModel(
-                                      id: const Uuid().v4(),
-                                      name: 'New List',
-                                      colorValue:
-                                          ref.read(colorPickerProvider).value,
-                                      toDoLists: [],
-                                    );
-                                    ref
-                                        .read(myListsProvider.notifier)
-                                        .addMyList(newList);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        body: const SafeArea(
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                ListNameInput(),
-                                Gap(16),
-                                ColorPicker(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    return const AddNewListView();
                   },
                 );
               },

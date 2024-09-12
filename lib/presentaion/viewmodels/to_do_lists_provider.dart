@@ -23,7 +23,6 @@ class ToDoListsNotifier extends StateNotifier<List<ToDoListsModel>> {
     try {
       // 데이터베이스에서 해당 MyList에 속한 ToDoLists 데이터를 가져옴
       final toDoLists = await toDoListsRepository.getToDoLists(myListId);
-      print(toDoLists[0].myListId);
       // 상태 업데이트
       state = toDoLists;
     } catch (e) {
