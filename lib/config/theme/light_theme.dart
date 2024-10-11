@@ -42,7 +42,7 @@ ThemeData lightTheme = ThemeData(
     headlineMedium: TextStyle(
       //작은앱바
       letterSpacing: -0.13,
-      fontSize: 16,
+      fontSize: 18,
       color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
@@ -76,15 +76,22 @@ ThemeData lightTheme = ThemeData(
     //리스트뷰
     bodyLarge: TextStyle(
       letterSpacing: -0.13,
-      fontSize: 16,
+      fontSize: 18,
       color: Colors.black,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
     ),
     bodyMedium: TextStyle(
       letterSpacing: -0.13,
       fontSize: 16,
       color: Color.fromARGB(255, 154, 154, 154),
       fontWeight: FontWeight.w400,
+    ),
+    //힌트 텍스트
+    labelMedium: TextStyle(
+      letterSpacing: -0.13,
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Color.fromARGB(255, 209, 209, 209),
     ),
   ),
   appBarTheme: const AppBarTheme(

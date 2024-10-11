@@ -5,9 +5,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_lists_model.dart';
 import 'package:to_do_list_riverpod/presentaion/viewmodels/to_do_lists_provider.dart';
-import 'package:uuid/uuid.dart';
+import 'package:to_do_list_riverpod/presentaion/views/add_new_to_do_list_view.dart';
 
 class ToDoListsView extends ConsumerWidget {
   final MyListsModel myList;
@@ -21,6 +20,7 @@ class ToDoListsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myListName = myList.name;
     final myListColor = Color(myList.colorValue);
+    final myListId = myList.id;
     final toDoLists = ref.watch(toDoListsProvider(myList.id));
 
     return Scaffold(
@@ -176,18 +176,15 @@ class ToDoListsView extends ConsumerWidget {
             ],
           ),
           onTap: () {
-            final newToDo = ToDoListsModel(
-              id: const Uuid().v4(),
-              title: 'New To-Do',
-              description: 'Description of new to-do',
-              date: DateTime.now().toString(),
-              time: TimeOfDay.now().format(context),
-              isCompleted: false,
-              myListId: myList.id,
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (BuildContext context) {
+                return AddNewToDoListView(
+                  myListId: myListId,
+                );
+              },
             );
-            ref
-                .read(toDoListsProvider(myList.id).notifier)
-                .addToDoList(newToDo);
           },
         ),
       ),
