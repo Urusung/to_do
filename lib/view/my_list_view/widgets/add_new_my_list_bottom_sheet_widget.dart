@@ -4,13 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/color_picker_provider.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/list_name_text_editing_controller_provider.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/my_lists_provider.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/riverpod/color_picker_provider.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_text_editing_controller_provider.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_provider.dart';
 import 'package:uuid/uuid.dart';
 
-class AddNewListView extends ConsumerWidget {
-  const AddNewListView({
+class AddNewMyListBottomSheetWidget extends ConsumerWidget {
+  const AddNewMyListBottomSheetWidget({
     super.key,
   });
 
@@ -33,7 +33,7 @@ class AddNewListView extends ConsumerWidget {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                ListNameTextField(),
+                ListNameTextFieldContainer(),
                 Gap(16),
                 ColorPicker(),
               ],
@@ -55,7 +55,7 @@ class AddNewListAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEmptyListName = ref.watch(isEmptyListNameTextProvider);
+    final isEmptyListName = ref.watch(isEmptyMyListNameTextProvider);
 
     return AppBar(
       elevation: 0,
@@ -114,35 +114,35 @@ class AddNewListAppBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   void _addList(BuildContext context, WidgetRef ref) {
-    final isEmptyListNameText = ref.watch(isEmptyListNameTextProvider);
+    final isEmptyListNameText = ref.watch(isEmptyMyListNameTextProvider);
     final selectedColor = ref.watch(colorPickerProvider);
 
     if (!isEmptyListNameText) {
-      final listName = ref.read(listNameTextEditingControllerProvider).text;
-      final newList = MyListsModel(
+      final listName = ref.read(myListNameTextEditingControllerProvider).text;
+      final newList = MyListModel(
         id: const Uuid().v4(),
         name: listName,
         colorValue: selectedColor.value,
         toDoLists: [],
       );
-      ref.read(myListsProvider.notifier).addMyList(newList);
+      ref.read(myListProvider.notifier).addMyList(newList);
       Navigator.pop(context);
     }
   }
 }
 
-class ListNameTextField extends ConsumerWidget {
-  const ListNameTextField({
+class ListNameTextFieldContainer extends ConsumerWidget {
+  const ListNameTextFieldContainer({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedColor = ref.watch(colorPickerProvider);
-    final listNameFocusNode = ref.watch(listNameFocusNodeProvider);
+    final listNameFocusNode = ref.watch(myListNameFocusNodeProvider);
     final listNameTextEditingController =
-        ref.watch(listNameTextEditingControllerProvider);
-    final isEmptyListName = ref.watch(isEmptyListNameTextProvider);
+        ref.watch(myListNameTextEditingControllerProvider);
+    final isEmptyListName = ref.watch(isEmptyMyListNameTextProvider);
 
     Future.delayed(const Duration(milliseconds: 500), () {
       listNameFocusNode.requestFocus();
@@ -217,7 +217,7 @@ class ListNameTextField extends ConsumerWidget {
               ),
             ),
             onChanged: (value) {
-              ref.read(isEmptyListNameTextProvider.notifier).state =
+              ref.read(isEmptyMyListNameTextProvider.notifier).state =
                   value.isEmpty;
             },
           ),

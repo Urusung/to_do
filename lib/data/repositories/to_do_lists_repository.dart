@@ -12,7 +12,7 @@ class ToDoListsRepository {
   }
 
   // 특정 MyLists에 속한 ToDoLists 데이터를 가져오기
-  Future<List<ToDoListsModel>> getToDoLists(String myListId) async {
+  Future<List<ToDoListsModel>> getToDoList(String myListId) async {
     return await localDataSource.getToDoLists(myListId);
   }
 

@@ -2,8 +2,8 @@ class ToDoListsModel {
   final String id;
   final String title;
   final String description;
-  final String date;
-  final String time;
+  final String? date;
+  final String? time;
   final bool isCompleted;
   final String myListId;
 
@@ -12,8 +12,8 @@ class ToDoListsModel {
     required this.id,
     required this.title,
     required this.description,
-    required this.date,
-    required this.time,
+    this.date,
+    this.time,
     required this.isCompleted,
     required this.myListId, // 외래키
   }); // id가 null일 경우 Uuid로 자동 생성

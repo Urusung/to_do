@@ -7,12 +7,12 @@ class MyListsRepository {
   MyListsRepository(this.localDataSource);
 
   // MyLists 데이터를 삽입
-  Future<void> addMyList(MyListsModel myList) async {
+  Future<void> addMyList(MyListModel myList) async {
     await localDataSource.insertMyList(myList);
   }
 
   // MyLists 데이터를 가져오기
-  Future<List<MyListsModel>> getMyLists() async {
+  Future<List<MyListModel>> getMyList() async {
     return await localDataSource.getMyLists();
   }
 

@@ -1,12 +1,12 @@
 import 'package:to_do_list_riverpod/data/models/to_do_lists_model.dart';
 
-class MyListsModel {
+class MyListModel {
   String id;
   String name;
   int colorValue;
   List<ToDoListsModel> toDoLists;
 
-  MyListsModel({
+  MyListModel({
     required this.id,
     required this.name,
     required this.colorValue,
@@ -22,8 +22,8 @@ class MyListsModel {
     };
   }
 
-  factory MyListsModel.fromMap(Map<String, dynamic> map) {
-    return MyListsModel(
+  factory MyListModel.fromMap(Map<String, dynamic> map) {
+    return MyListModel(
       id: map['id'],
       name: map['name'],
       colorValue: map['colorValue'],

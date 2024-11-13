@@ -55,7 +55,7 @@ class LocalDataSource {
     ''');
   }
 
-  Future<int> insertMyList(MyListsModel myList) async {
+  Future<int> insertMyList(MyListModel myList) async {
     final db = await database;
     return await db.insert('MyLists', myList.toMap());
   }
@@ -67,13 +67,13 @@ class LocalDataSource {
     return await db.insert('ToDoLists', map);
   }
 
-  Future<List<MyListsModel>> getMyLists() async {
+  Future<List<MyListModel>> getMyLists() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('MyLists');
     return List.generate(
       maps.length,
       (i) {
-        return MyListsModel.fromMap(maps[i]);
+        return MyListModel.fromMap(maps[i]);
       },
     );
   }

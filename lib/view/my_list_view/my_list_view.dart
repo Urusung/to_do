@@ -5,16 +5,16 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/my_lists_provider.dart';
-import 'package:to_do_list_riverpod/presentaion/viewmodels/to_do_lists_provider.dart';
-import 'package:to_do_list_riverpod/presentaion/views/add_new_list_view.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_provider.dart';
+import 'package:to_do_list_riverpod/view/to_do_list_view/riverpod/to_do_list_provider.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/widgets/add_new_my_list_bottom_sheet_widget.dart';
 
-class MyListsView extends ConsumerWidget {
-  const MyListsView({super.key});
+class MyListView extends ConsumerWidget {
+  const MyListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myLists = ref.watch(myListsProvider);
+    final myLists = ref.watch(myListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -192,8 +192,8 @@ class MyListsView extends ConsumerWidget {
                                 children: [
                                   Text(
                                     ref
-                                        .watch(toDoListsProvider(
-                                            myLists[index].id))
+                                        .watch(
+                                            toDoListProvider(myLists[index].id))
                                         .length
                                         .toString(),
                                     style:
@@ -265,7 +265,7 @@ class MyListsView extends ConsumerWidget {
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return const AddNewListView();
+                    return const AddNewMyListBottomSheetWidget();
                   },
                 );
               },
