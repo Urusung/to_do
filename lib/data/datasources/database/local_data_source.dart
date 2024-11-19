@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:to_do_list_riverpod/data/models/my_lists_model.dart';
-import 'package:to_do_list_riverpod/data/models/to_do_lists_model.dart';
+import 'package:to_do_list_riverpod/data/models/my_list_model.dart';
+import 'package:to_do_list_riverpod/data/models/to_do_list_model.dart';
 
 class LocalDataSource {
   static final LocalDataSource _instance = LocalDataSource._internal();
@@ -31,10 +31,9 @@ class LocalDataSource {
     );
   }
 
-  // 데이터베이스 테이블 생성
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE MyLists (
+      CREATE TABLE MyList (
         id TEXT PRIMARY KEY,
         name TEXT,
         colorValue INTEGER
@@ -42,7 +41,7 @@ class LocalDataSource {
     ''');
 
     await db.execute('''
-      CREATE TABLE ToDoLists (
+      CREATE TABLE ToDoList (
         id TEXT PRIMARY KEY,
         title TEXT,
         description TEXT,
@@ -50,26 +49,26 @@ class LocalDataSource {
         time TEXT,
         isCompleted INTEGER,
         myListId TEXT,
-        FOREIGN KEY (myListId) REFERENCES MyLists (id) ON DELETE CASCADE
+        FOREIGN KEY (myListId) REFERENCES MyList (id) ON DELETE CASCADE
       )
     ''');
   }
 
   Future<int> insertMyList(MyListModel myList) async {
     final db = await database;
-    return await db.insert('MyLists', myList.toMap());
+    return await db.insert('MyList', myList.toMap());
   }
 
-  Future<int> insertToDoList(ToDoListsModel toDoList, String myListId) async {
+  Future<int> insertToDoList(ToDoListModel toDoList, String myListId) async {
     final db = await database;
     Map<String, dynamic> map = toDoList.toMap();
     map['myListId'] = myListId; // 외래키 설정
-    return await db.insert('ToDoLists', map);
+    return await db.insert('ToDoList', map);
   }
 
-  Future<List<MyListModel>> getMyLists() async {
+  Future<List<MyListModel>> getMyList() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('MyLists');
+    final List<Map<String, dynamic>> maps = await db.query('MyList');
     return List.generate(
       maps.length,
       (i) {
@@ -78,14 +77,14 @@ class LocalDataSource {
     );
   }
 
-  Future<List<ToDoListsModel>> getToDoLists(String myListId) async {
+  Future<List<ToDoListModel>> getToDoList(String myListId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db
-        .query('ToDoLists', where: 'myListId = ?', whereArgs: [myListId]);
+        .query('ToDoList', where: 'myListId = ?', whereArgs: [myListId]);
     return List.generate(
       maps.length,
       (i) {
-        return ToDoListsModel.fromMap(maps[i]);
+        return ToDoListModel.fromMap(maps[i]);
       },
     );
   }

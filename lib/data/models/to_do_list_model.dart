@@ -1,4 +1,4 @@
-class ToDoListsModel {
+class ToDoListModel {
   final String id;
   final String title;
   final String description;
@@ -7,18 +7,16 @@ class ToDoListsModel {
   final bool isCompleted;
   final String myListId;
 
-  // Uuid를 사용하여 id를 자동으로 생성
-  ToDoListsModel({
+  ToDoListModel({
     required this.id,
     required this.title,
     required this.description,
     this.date,
     this.time,
     required this.isCompleted,
-    required this.myListId, // 외래키
-  }); // id가 null일 경우 Uuid로 자동 생성
+    required this.myListId,
+  });
 
-  // 데이터베이스에 저장하기 위한 toMap 메서드
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -31,9 +29,8 @@ class ToDoListsModel {
     };
   }
 
-  // DB에서 가져온 데이터를 모델로 변환하는 메서드
-  factory ToDoListsModel.fromMap(Map<String, dynamic> map) {
-    return ToDoListsModel(
+  factory ToDoListModel.fromMap(Map<String, dynamic> map) {
+    return ToDoListModel(
       id: map['id'],
       title: map['title'],
       description: map['description'],
