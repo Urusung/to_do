@@ -7,7 +7,7 @@ import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_provider.
 import 'package:to_do_list_riverpod/view/my_list_view/widgets/my_list_category_grid_widget.dart';
 import 'package:to_do_list_riverpod/view/my_list_view/widgets/my_list_header_widget.dart';
 import 'package:to_do_list_riverpod/view/my_list_view/widgets/my_list_sliver_list_widget.dart';
-import 'package:to_do_list_riverpod/view/my_list_view/bottom_sheets/add_new_my_list_bottom_sheet_widget.dart';
+import 'package:to_do_list_riverpod/view/my_list_view/bottom_sheets/add_new_my_list_bottom_sheet.dart';
 
 class MyListView extends ConsumerWidget {
   const MyListView({super.key});
@@ -71,7 +71,7 @@ class MyListView extends ConsumerWidget {
               isScrollControlled: true,
               context: context,
               builder: (BuildContext context) {
-                return const AddNewMyListBottomSheetWidget();
+                return const AddNewMyListBottomSheet();
               },
             );
           },

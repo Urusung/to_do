@@ -9,8 +9,8 @@ import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_text_edit
 import 'package:to_do_list_riverpod/view/my_list_view/riverpod/my_list_provider.dart';
 import 'package:uuid/uuid.dart';
 
-class AddNewMyListBottomSheetWidget extends ConsumerWidget {
-  const AddNewMyListBottomSheetWidget({
+class AddNewMyListBottomSheet extends ConsumerWidget {
+  const AddNewMyListBottomSheet({
     super.key,
   });
 

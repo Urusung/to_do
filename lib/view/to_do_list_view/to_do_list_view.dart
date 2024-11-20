@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:to_do_list_riverpod/data/models/my_list_model.dart';
-import 'package:to_do_list_riverpod/view/to_do_list_view/bottom_sheets/add_new_to_do_list_bottom_sheet_widget.dart';
+import 'package:to_do_list_riverpod/view/to_do_list_view/bottom_sheets/add_new_to_do_list_bottom_sheet.dart';
 import 'package:to_do_list_riverpod/view/to_do_list_view/widgets/to_do_list_cupertino_sliver_navigation_bar_widget.dart';
 import 'package:to_do_list_riverpod/view/to_do_list_view/widgets/to_do_list_sliver_list_widget.dart';
 
@@ -66,7 +66,7 @@ class ToDoListView extends ConsumerWidget {
               isScrollControlled: true,
               context: context,
               builder: (BuildContext context) {
-                return AddNewToDoListBottomSheetWidget(
+                return AddNewToDoListBottomSheet(
                   myListId: myListId,
                 );
               },

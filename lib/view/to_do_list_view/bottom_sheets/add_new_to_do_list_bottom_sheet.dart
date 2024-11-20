@@ -6,10 +6,10 @@ import 'package:to_do_list_riverpod/view/to_do_list_view/bottom_sheets/widgets/a
 import 'package:to_do_list_riverpod/view/to_do_list_view/bottom_sheets/widgets/add_new_to_do_list_title_notes_text_field_widget.dart';
 import 'package:to_do_list_riverpod/view/to_do_list_view/bottom_sheets/widgets/add_new_to_do_list_list_date_time_toggle_widget.dart';
 
-class AddNewToDoListBottomSheetWidget extends ConsumerWidget {
+class AddNewToDoListBottomSheet extends ConsumerWidget {
   final String myListId;
 
-  const AddNewToDoListBottomSheetWidget({
+  const AddNewToDoListBottomSheet({
     super.key,
     required this.myListId,
   });
